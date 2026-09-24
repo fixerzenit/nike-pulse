@@ -18,7 +18,14 @@ async function setScore(page: Page, label: string, score: number) {
   }
   await expect(slider).toHaveValue(String(score));
 }
-test("the public dashboard opens without login; old admin routes and invalid links stay hidden", async ({
+async function signInToDashboard(page: Page) {
+  await page.getByLabel("Password").fill("fixer");
+  await page.getByRole("button", { name: "Open dashboard" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Nike, today." }),
+  ).toBeVisible();
+}
+test("the dashboard requires its password; old admin routes and invalid links stay hidden", async ({
   page,
   request,
 }) => {
@@ -37,13 +44,16 @@ test("the public dashboard opens without login; old admin routes and invalid lin
     expect(response.status()).toBe(404);
   }
   await page.goto("/dashboard");
-  await expect(
-    page.getByRole("heading", { name: "Nike, today." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Research dashboard." })).toBeVisible();
+  const privateResponses = await request.get("/dashboard/responses");
+  expect(privateResponses.status()).toBe(200);
+  expect(await privateResponses.text()).not.toContain("Every perspective.");
+  await signInToDashboard(page);
   await expect(page.locator(".sidebar-bottom")).toContainText(
-    "PUBLIC DASHBOARD",
+    "PASSWORD-PROTECTED DASHBOARD",
   );
-  expect((await request.get("/dashboard/responses")).status()).toBe(200);
+  await page.goto("/dashboard/responses");
+  await expect(page.locator(".dashboard")).toBeVisible();
   await page.goto(resultsPath);
   await expect(page.getByText("Demo data · Synthetic")).toBeVisible();
   const response = await request.get(resultsPath);
@@ -54,7 +64,7 @@ test("the public dashboard opens without login; old admin routes and invalid lin
   );
   expect((await request.get("/api/responses")).status()).toBe(405);
 });
-test("mobile survey completes, resumes, keyboard tier placement, appears in public dashboard and exports", async ({
+test("mobile survey completes, resumes, keyboard tier placement, appears in protected dashboard and exports", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -187,6 +197,7 @@ test("mobile survey completes, resumes, keyboard tier placement, appears in publ
     ),
   ).toBeNull();
   await page.goto("/dashboard");
+  await signInToDashboard(page);
   await expect(page.getByText("Demo data · Synthetic")).toBeVisible();
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page

@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import DashboardLogout from "@/components/admin/DashboardLogout";
 import type { Response } from "@/lib/validation";
 import {
   median,
@@ -108,12 +109,14 @@ export default function Dashboard({
   raw = false,
   resultsPath,
   publicAccess = false,
+  passwordProtected = false,
 }: {
   initialRows: Response[];
   demo: boolean;
   raw?: boolean;
   resultsPath: string;
   publicAccess?: boolean;
+  passwordProtected?: boolean;
 }) {
   const defaultVersion =
     ([VERSION, "1.3", "1.2", "1.1", "1.0"] as const).find((v) =>
@@ -257,9 +260,14 @@ export default function Dashboard({
         </nav>
         <div className="sidebar-bottom">
           <span className="eyebrow">
-            {publicAccess ? "PUBLIC DASHBOARD" : "PRIVATE RESULTS LINK"}
+            {passwordProtected
+              ? "PASSWORD-PROTECTED DASHBOARD"
+              : publicAccess
+                ? "PUBLIC DASHBOARD"
+                : "PRIVATE RESULTS LINK"}
           </span>
           <Link href="/">View survey ↗</Link>
+          {passwordProtected && <DashboardLogout />}
         </div>
       </aside>
       <main className="admin-main">
@@ -268,6 +276,8 @@ export default function Dashboard({
           <span className="status">
             {demo
               ? "Demo data · Synthetic"
+              : passwordProtected
+                ? "Password-protected · Live responses"
               : publicAccess
                 ? "Public · Live responses"
                 : "Private · Live responses"}
@@ -424,9 +434,11 @@ export default function Dashboard({
           </div>
         </div>
         <p className="sample-note">
-          {publicAccess
-            ? "This dashboard is public. Anyone can open /dashboard and view or export individual responses."
-            : "Anyone with this results link can view and export responses. Keep it private."}{" "}
+          {passwordProtected
+            ? "A password is required to open the dashboard and view or export individual responses."
+            : publicAccess
+              ? "This dashboard is public. Anyone can open /dashboard and view or export individual responses."
+              : "Anyone with this results link can view and export responses. Keep it private."}{" "}
           <br />
           This is a directional convenience sample, not a representative
           population survey.
@@ -1180,8 +1192,11 @@ export default function Dashboard({
         <footer className="admin-footer">
           BRAND PULSE / NIKE{" "}
           <span>
-            {publicAccess ? "Public results" : "Private results"} · Survey
-            version {VERSION}
+            {passwordProtected
+              ? "Password-protected results"
+              : publicAccess
+                ? "Public results"
+                : "Private results"} · Survey version {VERSION}
           </span>
         </footer>
       </main>

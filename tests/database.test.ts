@@ -26,6 +26,9 @@ test("private-link database denies client reads; service writes remain atomic an
   await db.exec(
     await readFile("supabase/migrations/20260922000106_survey_v1_4.sql", "utf8"),
   );
+  await db.exec(
+    await readFile("supabase/migrations/20260924000107_unlimited_final_comment.sql", "utf8"),
+  );
   const row = makeDemo()[0];
   await db.exec("set role service_role");
   await db.query("select public.submit_survey($1::jsonb)", [

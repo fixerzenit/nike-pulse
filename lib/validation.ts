@@ -61,7 +61,7 @@ export const submissionSchema = z
     attribute_focus: scale,
     nike_used_to_feel: z.enum(feelingOptions),
     nike_today_feels: z.enum(feelingOptions),
-    ceo_change: z.string().trim().max(180).default(""),
+    ceo_change: z.string().trim().default(""),
   })
   .superRefine((a, ctx) => {
     if (!a.nike_weaknesses.includes(a.priority_weakness))

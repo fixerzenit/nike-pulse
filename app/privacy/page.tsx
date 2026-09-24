@@ -22,7 +22,7 @@ export default function Privacy() {
       </p>
       <h2>How it is used</h2>
       <p>
-        Responses can be viewed and exported by anyone who opens the public
+        Responses can be viewed and exported from the password-protected
         dashboard at /dashboard. An unfinished draft is saved in this browser
         and removed after successful submission. The public survey needs no
         account.

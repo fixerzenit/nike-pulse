@@ -300,6 +300,62 @@ h3 {
   color: var(--muted);
   font-size: 12px;
 }
+.survey-footer-links,
+.thanks-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.dashboard-login {
+  width: min(100% - 40px, 560px);
+  min-height: calc(100vh - 7px);
+  margin: 0 auto;
+  padding: clamp(48px, 12vh, 120px) 0 56px;
+}
+.dashboard-login .wordmark {
+  display: inline-block;
+  margin-bottom: 56px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+.dashboard-login .wordmark span {
+  color: var(--nike-red);
+  font-size: 12px;
+  letter-spacing: 0;
+}
+.dashboard-login .eyebrow {
+  color: var(--muted);
+}
+.dashboard-login h1 {
+  margin: 12px 0;
+  font-family: "P22 Mackinac", Georgia, serif;
+  font-size: clamp(36px, 8vw, 58px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.dashboard-login form {
+  display: grid;
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+.dashboard-login form label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.dashboard-login form .primary {
+  width: 100%;
+  margin-top: 8px;
+}
+.dashboard-logout {
+  min-height: 32px;
+  padding: 2px 0;
+  color: var(--muted);
+  text-align: left;
+  font-size: 12px;
+  text-decoration: underline;
+}
 .question-meta {
   display: flex;
   justify-content: space-between;

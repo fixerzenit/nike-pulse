@@ -702,14 +702,10 @@ export default function Survey({ demo }: { demo: boolean }) {
                   <label className="field-label">
                     Your one change (optional)
                     <textarea
-                      maxLength={180}
                       rows={4}
                       value={draft.ceo_change || ""}
                       onChange={(e) => set("ceo_change", e.target.value)}
                     />
-                    <span className="counter">
-                      {draft.ceo_change?.length || 0}/180
-                    </span>
                   </label>
                 )}
                 {error && (
@@ -739,7 +735,10 @@ export default function Survey({ demo }: { demo: boolean }) {
         <span>
           Independent personal research project. Not an official Nike survey.
         </span>
-        <Link href="/privacy">Privacy</Link>
+        <span className="survey-footer-links">
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/dashboard">Research dashboard ↗</Link>
+        </span>
       </footer>
     </div>
   );
