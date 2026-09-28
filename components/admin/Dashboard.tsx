@@ -273,15 +273,20 @@ export default function Dashboard({
       <main className="admin-main">
         <header className="admin-header">
           <span className="eyebrow">RESEARCH / NIKE / VERSION {VERSION}</span>
-          <span className="status">
-            {demo
-              ? "Demo data · Synthetic"
-              : passwordProtected
-                ? "Password-protected · Live responses"
-              : publicAccess
-                ? "Public · Live responses"
-                : "Private · Live responses"}
-          </span>
+          <div className="admin-header-actions">
+            <span className="status">
+              {demo
+                ? "Demo data · Synthetic"
+                : passwordProtected
+                  ? "Password-protected · Live responses"
+                  : publicAccess
+                    ? "Public · Live responses"
+                    : "Private · Live responses"}
+            </span>
+            <Link href="/" className="home-link">
+              ← Survey home
+            </Link>
+          </div>
         </header>
         <div className="dashboard-title">
           <div>

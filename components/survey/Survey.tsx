@@ -298,7 +298,12 @@ export default function Survey({ demo }: { demo: boolean }) {
         <Link href="/" className="wordmark">
           BRAND PULSE<span> / 01</span>
         </Link>
-        <span className="eyebrow">INDEPENDENT RESEARCH</span>
+        <div className="survey-header-actions">
+          <span className="eyebrow">INDEPENDENT RESEARCH</span>
+          <Link href="/" className="home-link">
+            ← Home
+          </Link>
+        </div>
       </header>
       {demo && (
         <div className="demo-strip">

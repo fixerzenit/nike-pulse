@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import { makeDemo } from "../lib/demo";
-import { categories, legacyBrands, reasons } from "../lib/survey-config";
+import { brands, categories, legacyBrands, reasons } from "../lib/survey-config";
 
 test("private-link database denies client reads; service writes remain atomic and idempotent", async () => {
   const db = new PGlite();
@@ -29,6 +29,9 @@ test("private-link database denies client reads; service writes remain atomic an
   await db.exec(
     await readFile("supabase/migrations/20260924000107_unlimited_final_comment.sql", "utf8"),
   );
+  await db.exec(
+    await readFile("supabase/migrations/20260928000108_add_brooks_tierlist.sql", "utf8"),
+  );
   const row = makeDemo()[0];
   await db.exec("set role service_role");
   await db.query("select public.submit_survey($1::jsonb)", [
@@ -51,7 +54,7 @@ test("private-link database denies client reads; service writes remain atomic an
         "select count(*)::int n from public.brand_tier_rankings",
       )
     ).rows[0].n,
-    10,
+    11,
   );
   await assert.rejects(
     db.query("select public.submit_survey($1::jsonb)", [
@@ -178,6 +181,9 @@ test("private-link database denies client reads; service writes remain atomic an
     id: crypto.randomUUID(),
     session_id: crypto.randomUUID(),
     survey_version: "1.3",
+    brand_tiers: Object.fromEntries(
+      brands.filter((brand) => brand !== "Brooks").map((brand) => [brand, row.brand_tiers[brand]]),
+    ),
     priority_weakness: null,
     recent_purchase_brand: null,
     recent_purchase_reason: null,

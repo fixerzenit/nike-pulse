@@ -9,6 +9,7 @@ export default function Thanks() {
       <p className="intro-copy">Thanks for the instinctive take.</p>
       <p className="hint">Your response has been saved.</p>
       <div className="thanks-links">
+        <Link href="/">← Back to home</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/dashboard">Research dashboard ↗</Link>
       </div>

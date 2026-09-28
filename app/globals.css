@@ -227,6 +227,24 @@ h3 {
   align-items: center;
   padding: 28px 4vw;
 }
+.survey-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.home-link {
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.home-link:hover {
+  color: var(--nike-red);
+}
 .progress {
   height: 2px;
   background: #e9eae4;

@@ -24,6 +24,7 @@ export const brands = [
   "Puma",
   "Under Armour",
   "Reebok",
+  "Brooks",
 ] as const;
 export const legacyBrands = [
   "Nike",
@@ -81,7 +82,16 @@ export const purchases = [
   "Never",
 ] as const;
 export const recentPurchaseBrands = [
-  ...brands,
+  "Nike",
+  "adidas",
+  "New Balance",
+  "ASICS",
+  "Salomon",
+  "On",
+  "Hoka",
+  "Puma",
+  "Under Armour",
+  "Reebok",
   "Another brand",
   "No recent purchase",
 ] as const;
