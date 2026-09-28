@@ -271,6 +271,12 @@ h3 {
   line-height: 1.6;
   margin-bottom: 30px;
 }
+.intro-disclaimer {
+  margin: -14px 0 28px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
 .intro-meta {
   display: flex;
   gap: 25px;

@@ -345,6 +345,10 @@ export default function Survey({ demo }: { demo: boolean }) {
                   <br />
                   Go with your first reaction.
                 </p>
+                <p className="intro-disclaimer">
+                  Independent research project. Not affiliated with or endorsed
+                  by Nike.
+                </p>
                 <div className="intro-meta">
                   <span>~5 min</span>
                   <span>Anonymous</span>
